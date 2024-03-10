@@ -7,6 +7,7 @@ import (
 
 func main() {
 	http.HandleFunc("/", patientcontroller.Index)
+	http.HandleFunc("/patient/get_form", patientcontroller.GetForm)
 
 	http.ListenAndServe(":3000", nil)
 }

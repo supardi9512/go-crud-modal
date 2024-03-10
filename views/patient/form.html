@@ -1,0 +1,54 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="formModalLabel">Add Data</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="/patient/store" id="form">
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" class="form-control" autocomplete="off">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="nik">NIK</label>
+                <input type="text" name="nik" id="nik" class="form-control" autocomplete="off">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <select name="gender" id="gender" class="form-control">
+                    <option value="">Choose Gender</option>
+                    <option value="1">Male</option>
+                    <option value="2">Female</option>
+                </select>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="place_of_birth">Place of Birth</label>
+                <input type="text" name="place_of_birth" id="place_of_birth" class="form-control" autocomplete="off">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="date_of_birth">Date of Birth</label>
+                <input type="date" name="date_of_birth" id="date_of_birth" class="form-control" autocomplete="off">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="address">Address</label>
+                <textarea name="address" id="address" class="form-control" autocomplete="off"></textarea>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="phone_number">Phone Number</label>
+                <input type="text" name="phone_number" id="phone_number" class="form-control" autocomplete="off">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-sm btn-primary">Save</button>
+        </div>
+      </form>
+    </div>
+</div>

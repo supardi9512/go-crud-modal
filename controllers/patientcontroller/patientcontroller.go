@@ -43,3 +43,8 @@ func GetData() string {
 
 	return buffer.String()
 }
+
+func GetForm(w http.ResponseWriter, r *http.Request) {
+	temp, _ := template.ParseFiles("views/patient/form.html")
+	temp.Execute(w, nil)
+}
