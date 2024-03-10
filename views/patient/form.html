@@ -1,48 +1,51 @@
 <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="formModalLabel">Add Data</h1>
+        <h1 class="modal-title fs-5" id="formModalLabel">{{ .title }}</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <form id="form" action="/patient/store" method="POST">
         <div class="modal-body">
+            {{ if .patient.Id }}
+                <input type="hidden" name="id" value="{{ .patient.Id }}">
+            {{ end }}
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" name="name" id="name" class="form-control" autocomplete="off">
+                <input type="text" name="name" id="name" class="form-control" value="{{ .patient.Name }}" autocomplete="off">
             </div>
             <br>
             <div class="form-group">
-                <label for="nik">NIK</label>
-                <input type="text" name="nik" id="nik" class="form-control" autocomplete="off">
+                <label for="nik">ID Number</label>
+                <input type="text" name="nik" id="nik" class="form-control" value="{{ .patient.Nik }}" autocomplete="off">
             </div>
             <br>
             <div class="form-group">
                 <label for="gender">Gender</label>
                 <select name="gender" id="gender" class="form-control">
                     <option value="">Choose Gender</option>
-                    <option value="1">Male</option>
-                    <option value="2">Female</option>
+                    <option value="1" {{ if eq .patient.Gender `1` }} selected {{ end }}>Male</option>
+                    <option value="2" {{ if eq .patient.Gender `2` }} selected {{ end }}>Female</option>
                 </select>
             </div>
             <br>
             <div class="form-group">
                 <label for="place_of_birth">Place of Birth</label>
-                <input type="text" name="place_of_birth" id="place_of_birth" class="form-control" autocomplete="off">
+                <input type="text" name="place_of_birth" id="place_of_birth" class="form-control" value="{{ .patient.PlaceOfBirth }}" autocomplete="off">
             </div>
             <br>
             <div class="form-group">
                 <label for="date_of_birth">Date of Birth</label>
-                <input type="date" name="date_of_birth" id="date_of_birth" class="form-control" autocomplete="off">
+                <input type="date" name="date_of_birth" id="date_of_birth" class="form-control" value="{{ .patient.DateOfBirth }}" autocomplete="off">
             </div>
             <br>
             <div class="form-group">
                 <label for="address">Address</label>
-                <textarea name="address" id="address" class="form-control" autocomplete="off"></textarea>
+                <textarea name="address" id="address" class="form-control" autocomplete="off">{{ .patient.Address }}</textarea>
             </div>
             <br>
             <div class="form-group">
                 <label for="phone_number">Phone Number</label>
-                <input type="text" name="phone_number" id="phone_number" class="form-control" autocomplete="off">
+                <input type="text" name="phone_number" id="phone_number" class="form-control" value="{{ .patient.PhoneNumber }}" autocomplete="off">
             </div>
         </div>
         <div class="modal-footer">

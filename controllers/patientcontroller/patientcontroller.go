@@ -7,6 +7,7 @@ import (
 	"go-crud-modal/models/patientmodel"
 	"html/template"
 	"net/http"
+	"strconv"
 )
 
 var patientModel = patientmodel.New()
@@ -46,8 +47,31 @@ func GetData() string {
 }
 
 func GetForm(w http.ResponseWriter, r *http.Request) {
+	queryString := r.URL.Query()
+	id, err := strconv.ParseInt(queryString.Get("id"), 10, 64)
+
+	var data map[string]interface{}
+
+	if err != nil {
+		data = map[string]interface{}{
+			"title": "Add Data",
+		}
+	} else {
+		var patient entities.Patient
+		err := patientModel.Find(id, &patient)
+
+		if err != nil {
+			panic(err)
+		}
+
+		data = map[string]interface{}{
+			"title":   "Edit Data",
+			"patient": patient,
+		}
+	}
+
 	temp, _ := template.ParseFiles("views/patient/form.html")
-	temp.Execute(w, nil)
+	temp.Execute(w, data)
 }
 
 func Store(w http.ResponseWriter, r *http.Request) {
@@ -64,16 +88,40 @@ func Store(w http.ResponseWriter, r *http.Request) {
 		patient.Address = r.Form.Get("address")
 		patient.PhoneNumber = r.Form.Get("phone_number")
 
-		err := patientModel.Create(&patient)
+		id, err := strconv.ParseInt(r.Form.Get("id"), 10, 64)
+
+		var data map[string]interface{}
 
 		if err != nil {
-			ResponseError(w, http.StatusInternalServerError, err.Error())
-			return
-		}
+			// insert data
 
-		data := map[string]interface{}{
-			"message": "Patient data has been added successfully",
-			"data":    template.HTML(GetData()),
+			err := patientModel.Create(&patient)
+
+			if err != nil {
+				ResponseError(w, http.StatusInternalServerError, err.Error())
+				return
+			}
+
+			data = map[string]interface{}{
+				"message": "Patient data has been added successfully",
+				"data":    template.HTML(GetData()),
+			}
+		} else {
+			// update data
+
+			patient.Id = id
+
+			err := patientModel.Update(patient)
+
+			if err != nil {
+				ResponseError(w, http.StatusInternalServerError, err.Error())
+				return
+			}
+
+			data = map[string]interface{}{
+				"message": "Patient data has been updated successfully",
+				"data":    template.HTML(GetData()),
+			}
 		}
 
 		ResponseJson(w, http.StatusOK, data)
