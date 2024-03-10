@@ -1,6 +1,6 @@
 package entities
 
-type Student struct {
+type Patient struct {
 	Id           int64
 	Name         string
 	Nik          string

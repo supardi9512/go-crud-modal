@@ -1,0 +1,17 @@
+{{ $no := 0 }}
+{{ range .patient }}
+    <tr>
+        {{ $no = increment $no 1 }}
+        <td>{{ $no }}</td>
+        <td>{{ .Name }}</td>
+        <td>{{ .Nik }}</td>
+        <td>{{ .Gender }}</td>
+        <td>{{ .PlaceOfBirth }}, {{ .DateOfBirth }}</td>
+        <td>{{ .Address }}</td>
+        <td>{{ .PhoneNumber }}</td>
+        <td>
+            <button type="button" class="btn btn-sm btn-warning">Edit</button>
+            <button type="button" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete the data?')">Delete</button>
+        </td>
+    </tr>
+{{ end }}

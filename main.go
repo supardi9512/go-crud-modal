@@ -1,12 +1,12 @@
 package main
 
 import (
-	"go-crud-modal/controllers/studentcontroller"
+	"go-crud-modal/controllers/patientcontroller"
 	"net/http"
 )
 
 func main() {
-	http.HandleFunc("/", studentcontroller.Index)
+	http.HandleFunc("/", patientcontroller.Index)
 
-	http.ListenAndServe(":8000", nil)
+	http.ListenAndServe(":3000", nil)
 }
