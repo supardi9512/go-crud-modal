@@ -128,6 +128,29 @@ func Store(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func Delete(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+
+	id, err := strconv.ParseInt(r.Form.Get("id"), 10, 64)
+
+	if err != nil {
+		panic(err)
+	}
+
+	err = patientModel.Delete(id)
+
+	if err != nil {
+		panic(err)
+	}
+
+	data := map[string]interface{}{
+		"message": "Patient data has been deleted successfully",
+		"data":    template.HTML(GetData()),
+	}
+
+	ResponseJson(w, http.StatusOK, data)
+}
+
 func ResponseError(w http.ResponseWriter, code int, message string) {
 	ResponseJson(w, code, map[string]string{
 		"error": message,

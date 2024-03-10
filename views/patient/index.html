@@ -46,10 +46,22 @@
 
         $(document).on('click', '.edit-data', function() {
           var id = $(this).attr('data-id')
-          
+
           $.get(site_url + "patient/get_form?id=" + id, function(html) {
             $('#formModal').html(html).modal('show')
           })
+        });
+
+        $(document).on('click', '.delete-data', function() {
+          var id = $(this).attr('data-id')
+          
+          var confirmDelete = confirm("Are you sure you want to delete the data?")
+          if(confirmDelete == true) {
+            $.post(site_url + "patient/delete", {id: id}, function(response) {
+              $('tbody').html(response.data)
+              alert(response.message)
+            }, 'JSON')
+          }
         });
 
         $(document).on('submit', '#form', function(e) {

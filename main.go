@@ -9,6 +9,7 @@ func main() {
 	http.HandleFunc("/", patientcontroller.Index)
 	http.HandleFunc("/patient/get_form", patientcontroller.GetForm)
 	http.HandleFunc("/patient/store", patientcontroller.Store)
+	http.HandleFunc("/patient/delete", patientcontroller.Delete)
 
 	http.ListenAndServe(":3000", nil)
 }

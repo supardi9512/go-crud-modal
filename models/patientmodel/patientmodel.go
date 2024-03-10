@@ -80,3 +80,13 @@ func (p *PatientModel) Update(patient entities.Patient) error {
 
 	return nil
 }
+
+func (p *PatientModel) Delete(id int64) error {
+	_, err := p.db.Exec("DELETE FROM patients WHERE id = ?", id)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
