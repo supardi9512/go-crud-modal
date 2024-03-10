@@ -40,3 +40,16 @@ func (p *PatientModel) FindAll(patient *[]entities.Patient) error {
 
 	return nil
 }
+
+func (p *PatientModel) Create(patient *entities.Patient) error {
+	result, err := p.db.Exec("INSERT INTO patients (name, nik, gender, place_of_birth, date_of_birth, address, phone_number) VALUES(?,?,?,?,?,?,?)", patient.Name, patient.Nik, patient.Gender, patient.PlaceOfBirth, patient.DateOfBirth, patient.Address, patient.PhoneNumber)
+
+	if err != nil {
+		return err
+	}
+
+	lastInsertId, _ := result.LastInsertId()
+	patient.Id = lastInsertId
+
+	return nil
+}
